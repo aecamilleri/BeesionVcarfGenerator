@@ -44,14 +44,24 @@
         let phone = localStorage.getItem("phone");
         let email = localStorage.getItem("email");
 
-        let meCardData = `MECARD:N:${lastname},${name};TEL:${phone};EMAIL:${email};;`;
+        // Generar el texto en formato vCard
+        let vCardData = `BEGIN:VCARD
+VERSION:3.0
+FN:${name} ${lastname}
+TEL:${phone}
+EMAIL:${email}
+END:VCARD`;
 
+        // Generar el QR con vCard
         new QRCode(document.getElementById("qrcode"), {
-            text: meCardData,
+            text: vCardData,
             width: 200,
             height: 200
         });
     </script>
+
+    <!-- Botón de Volver -->
+    <button class="back-button" onclick="window.location.href='dashboard.html'">Volver al Dashboard</button>
 </body>
 
 </html>
