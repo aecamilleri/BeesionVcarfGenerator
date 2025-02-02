@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario - Generador de QR vCard</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+            text-align: center;
+        }
+
+        h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        #contactForm {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 400px;
+        }
+
+        #contactForm input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        #contactForm button {
+            width: 100%;
+            padding: 10px;
+            background-color: #0068FF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #contactForm button:hover {
+            background-color: #004bb5;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Generador de QR para Contacto</h2>
+    <form id="contactForm">
+        <input type="text" id="name" placeholder="Nombre" required><br>
+        <input type="text" id="lastname" placeholder="Apellido" required><br>
+        <input type="tel" id="phone" placeholder="Teléfono" required><br>
+        <input type="email" id="email" placeholder="Email" required><br>
+        <button type="submit">Generar QR</button>
+    </form>
+
+    <script>
+        // Verificar que el usuario esté logueado
+        if (!localStorage.getItem("username")) {
+            window.location.href = "login.html";
+        }
+
+        document.getElementById("contactForm").addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            let name = document.getElementById("name").value;
+            let lastname = document.getElementById("lastname").value;
+            let phone = document.getElementById("phone").value;
+            let email = document.getElementById("email").value;
+
+            // Guardar los datos en localStorage
+            localStorage.setItem("name", name);
+            localStorage.setItem("lastname", lastname);
+            localStorage.setItem("phone", phone);
+            localStorage.setItem("email", email);
+
+            // Redirigir a la página del QR
+            window.location.href = "qr.html";
+        });
+    </script>
+</body>
+
+</html>

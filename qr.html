@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR - Generador de QR vCard</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+            text-align: center;
+        }
+
+        #qrcode {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Tu QR de Contacto</h2>
+    <div id="qrcode"></div>
+
+    <script>
+        // Verificar que los datos existan en localStorage
+        if (!localStorage.getItem("name") || !localStorage.getItem("phone") || !localStorage.getItem("email")) {
+            window.location.href = "formulario.html";
+        }
+
+        let name = localStorage.getItem("name");
+        let lastname = localStorage.getItem("lastname");
+        let phone = localStorage.getItem("phone");
+        let email = localStorage.getItem("email");
+
+        let meCardData = `MECARD:N:${lastname},${name};TEL:${phone};EMAIL:${email};;`;
+
+        new QRCode(document.getElementById("qrcode"), {
+            text: meCardData,
+            width: 200,
+            height: 200
+        });
+    </script>
+</body>
+
+</html>

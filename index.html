@@ -4,50 +4,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Generador de QR vCard</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-    <link rel="manifest" href="manifest.json">
+    <title>Login - Generador de QR vCard</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        /* Estilos para el marco móvil */
         body {
             font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 30px;
-            background-color: #f0f0f0;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            flex-direction: column;
-            text-align: center;
+            background-color: #f0f0f0;
+            margin: 0;
         }
-    
-        h2 {
-            color: #333;
-            margin-bottom: 20px;
-        }
-    
-        #contactForm {
+
+        .form-container {
             background-color: white;
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            width: 90%;
-            max-width: 400px;
+            width: 300px;
+            text-align: center;
         }
-    
-        /* Estilo para inputs */
-        #contactForm input {
+
+        input {
             width: 100%;
             padding: 10px;
             margin: 10px 0;
             border: 1px solid #ccc;
             border-radius: 5px;
-            box-sizing: border-box; /* Incluye padding y border en el ancho total */
         }
-    
-        #contactForm button {
+
+        button {
             width: 100%;
             padding: 10px;
             background-color: #0068FF;
@@ -55,76 +42,39 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            font-size: 16px;
         }
-    
-        #contactForm button:hover {
+
+        button:hover {
             background-color: #004bb5;
         }
-    
-        #qrcode {
-            margin-top: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-    
-        /* Asegura que los QR code se muestren bien en dispositivos pequeños */
-        @media (max-width: 600px) {
-            #qrcode {
-                width: 80%;
-            }
-        }
     </style>
-    
 </head>
 
 <body>
-    <h2>Generador de QR para Contacto</h2>
-    <form id="contactForm">
-        <input type="text" id="name" placeholder="Nombre" required><br>
-        <input type="text" id="lastname" placeholder="Apellido" required><br>
-        <input type="tel" id="phone" placeholder="Teléfono" required><br>
-        <input type="email" id="email" placeholder="Email" required><br>
-        <button type="submit">Generar QR</button>
-    </form>
-
-    <div id="qrcode" style="margin-top: 20px;"></div>
+    <div class="form-container">
+        <h2>Iniciar sesión</h2>
+        <form id="loginForm">
+            <input type="text" id="username" placeholder="Usuario" required><br>
+            <input type="password" id="password" placeholder="Contraseña" required><br>
+            <button type="submit">Iniciar sesión</button>
+        </form>
+    </div>
 
     <script>
-        document.getElementById("contactForm").addEventListener("submit", function (event) {
+        document.getElementById("loginForm").addEventListener("submit", function (event) {
             event.preventDefault();
 
-            let name = document.getElementById("name").value;
-            let lastname = document.getElementById("lastname").value;
-            let phone = document.getElementById("phone").value;
-            let email = document.getElementById("email").value;
+            let username = document.getElementById("username").value;
+            let password = document.getElementById("password").value;
 
-            let meCardData = `MECARD:N:${lastname},${name};TEL:${phone};EMAIL:${email};;`;
+            // Guardar el usuario en localStorage (simple autenticación)
+            localStorage.setItem("username", username);
+            localStorage.setItem("password", password);
 
-            document.getElementById("qrcode").innerHTML = ""; // Limpiar QR anterior
-            new QRCode(document.getElementById("qrcode"), {
-                text: meCardData,
-                width: 200,
-                height: 200
-            });
+            // Redirigir al formulario para ingresar los datos
+            window.location.href = "formulario.html";
         });
     </script>
-
-    <script>
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('service-worker.js')
-                    .then((registration) => {
-                        console.log('Service Worker registrado con éxito:', registration);
-                    })
-                    .catch((error) => {
-                        console.log('Error al registrar el Service Worker:', error);
-                    });
-            });
-        }
-    </script>
-
 </body>
 
 </html>
