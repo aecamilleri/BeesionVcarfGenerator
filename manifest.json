@@ -2,7 +2,7 @@
     "name": "Generador de QR vCard",
     "short_name": "QR vCard",
     "description": "Generador de QR para compartir contactos",
-    "start_url": "/BeesionVcarfGenerator/QR%20VCard%20Generator.html",
+    "start_url": "/BeesionVcarfGenerator/index.html",
     "display": "standalone",
     "background_color": "#ffffff",
     "theme_color": "#0068FF",

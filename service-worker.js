@@ -2,7 +2,7 @@ self.addEventListener('install', (event) => {
     event.waitUntil(
         caches.open('contact-qr-cache').then((cache) => {
             return cache.addAll([
-                '/BeesionVcarfGenerator/QR%20VCard%20Generator.html',
+                '/BeesionVcarfGenerator/index.html',
                 '/BeesionVcarfGenerator/manifest.json',
                 '/BeesionVcarfGenerator/qrcode.min.js',
                 '/BeesionVcarfGenerator/style.css',
@@ -18,7 +18,7 @@ self.addEventListener('fetch', (event) => {
         caches.match(event.request).then((response) => {
             return response || fetch(event.request);
         }).catch(() => {
-            return caches.match('/BeesionVcarfGenerator/QR%20VCard%20Generator.html');
+            return caches.match('/BeesionVcarfGenerator/index.html');
         })
     );
 });
