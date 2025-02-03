@@ -6,62 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mis Datos - Generador de QR vCard</title>
     <link rel="stylesheet" href="style.css">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            flex-direction: column;
-            text-align: center;
-        }
 
-        h2 {
-            color: #333;
-            margin-bottom: 20px;
-        }
-
-        .data-container {
-            background-color: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            width: 90%;
-            max-width: 400px;
-            text-align: left;
-        }
-
-        .data-container div {
-            margin-bottom: 10px;
-        }
-
-        .data-container input {
-            width: 94%;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-
-        .data-container button {
-            width: 100%;
-            padding: 10px;
-            background-color: #0068FF;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .data-container button:hover {
-            background-color: #004bb5;
-        }
-    </style>
 </head>
 
-<body>
+<body class="datos">
     <h2>Mis Datos</h2>
     <div class="data-container">
         <div>
@@ -96,7 +44,7 @@
         document.getElementById("email").value = localStorage.getItem("email") || "";
 
         // Guardar los cambios realizados
-        document.getElementById("saveButton").addEventListener("click", function() {
+        document.getElementById("saveButton").addEventListener("click", function () {
             let name = document.getElementById("name").value;
             let lastname = document.getElementById("lastname").value;
             let phone = document.getElementById("phone").value;
