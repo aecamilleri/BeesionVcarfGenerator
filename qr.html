@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>QR - Generador de QR vCard</title>
-    <link rel="stylesheet" href="style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body class="qr-generated">
@@ -18,47 +18,28 @@
         if (!localStorage.getItem("name") || !localStorage.getItem("phone") || !localStorage.getItem("email")) {
             window.location.href = "formulario.html";
         }
-    
+
         let name = localStorage.getItem("name");
         let lastname = localStorage.getItem("lastname");
         let phone = localStorage.getItem("phone");
         let email = localStorage.getItem("email");
-    
+
         // Generar el texto en formato vCard
-        let vCardData = BEGIN:VCARD
-    VERSION:3.0
-    FN:${name} ${lastname}
-    TEL:${phone}
-    EMAIL:${email}
-    END:VCARD;
-    
-        // Generar el QR con vCard usando QRCode.js
-        let qrContainer = document.getElementById("qrcode");
-        new QRCode(qrContainer, {
+        let vCardData = `BEGIN:VCARD
+VERSION:3.0
+FN:${name} ${lastname}
+TEL:${phone}
+EMAIL:${email}
+END:VCARD`;
+
+        // Generar el QR con vCard
+        new QRCode(document.getElementById("qrcode"), {
             text: vCardData,
             width: 200,
-            height: 200,
-            callback: function() {
-                // Cuando el QR ha sido generado, obtener la imagen
-                let imgElement = qrContainer.querySelector("img");
-                let qrImageUrl = imgElement.src;
-    
-                // Guardar el QR en localStorage
-                let qrList = JSON.parse(localStorage.getItem("qrList")) || [];
-                qrList.push({
-                    name: name,
-                    lastname: lastname,
-                    phone: phone,
-                    email: email,
-                    qrImage: qrImageUrl // Guardamos la URL del QR generado
-                });
-    
-                // Actualizamos el localStorage con la nueva lista de QRs
-                localStorage.setItem("qrList", JSON.stringify(qrList));
-            }
+            height: 200
         });
     </script>
-    
+
     <!-- Botón de Volver -->
     <button class="back-button" onclick="window.location.href='dashboard.html'">Volver al Dashboard</button>
 </body>

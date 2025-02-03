@@ -9,73 +9,59 @@
 </head>
 
 <body class="qrs">
-    <div>
-        <h2>Mis QRs</h2>
-        <div id="qrList"></div>
-        <script>
-            // Verificar que el usuario esté logueado (opcional)
-            if (!localStorage.getItem("username")) {
-                window.location.href = "login.html";
-            }
-        
-            // Cargar y mostrar los QRs generados
-            let qrList = JSON.parse(localStorage.getItem("qrList")) || [];
-        
-            if (qrList.length === 0) {
-                document.getElementById("qrList").innerHTML = "<p>No tienes QRs generados.</p>";
-            } else {
-                qrList.forEach(function (qrData, index) {
-                    let qrContainer = document.createElement("div");
-                    qrContainer.classList.add("qr-container");
-        
-                    // Verificar que el QR se puede cargar antes de mostrarlo
-                    let imgElement = new Image();
-                    imgElement.src = qrData.qrImage;
-                    imgElement.onload = function() {
-                        qrContainer.innerHTML = `
-                            <p><strong>${qrData.name} ${qrData.lastname}</strong></p>
-                            <img src="${qrData.qrImage}" alt="QR Code">
-                            <p>${qrData.email}</p>
-                            <button onclick="downloadQR('${qrData.qrImage}')">Descargar QR</button>
-                        `;
-                        document.getElementById("qrList").appendChild(qrContainer);
-                    };
-                    imgElement.onerror = function() {
-                        qrContainer.innerHTML = `
-                            <p><strong>${qrData.name} ${qrData.lastname}</strong></p>
-                            <p>Hubo un problema al cargar el QR. Intenta generar uno nuevo.</p>
-                        `;
-                        document.getElementById("qrList").appendChild(qrContainer);
-                    };
-                });
-        
-                // Agregar botón de borrar todos
-                let deleteAllButton = document.createElement("button");
-                deleteAllButton.innerText = "Borrar Todos los QRs";
-                deleteAllButton.classList.add("back-button");
-                deleteAllButton.onclick = function () {
-                    if (confirm("¿Seguro que deseas borrar todos los QRs? Esta acción no se puede deshacer.")) {
-                        localStorage.removeItem("qrList");
-                        location.reload(); // Recargar la página para actualizar la lista
-                    }
-                };
-                document.body.appendChild(deleteAllButton);
-            }
-        
-            function downloadQR(qrImage) {
-                let link = document.createElement("a");
-                link.href = qrImage;
-                link.download = "contact_qr.png";
-                link.click();
-            }
-        </script>
-        
-        
+    <h2>Mis QRs</h2>
 
-        </script>
-        <!-- Botón de Volver -->
-        <button class="back-button" onclick="window.location.href='dashboard.html'">Volver al Dashboard</button>
-    </div>
+    <div id="qrList"></div>
+
+    <script>
+        // Verificar que el usuario esté logueado
+        if (!localStorage.getItem("username")) {
+            window.location.href = "login.html";
+        }
+    
+        // Cargar y mostrar los QRs generados
+        let qrList = JSON.parse(localStorage.getItem("qrList")) || [];
+    
+        if (qrList.length === 0) {
+            document.getElementById("qrList").innerHTML = "<p>No tienes QRs generados.</p>";
+        } else {
+            qrList.forEach(function(qrData, index) {
+                let qrContainer = document.createElement("div");
+                qrContainer.classList.add("qr-container");
+                qrContainer.innerHTML = `
+                    <p><strong>${qrData.name} ${qrData.lastname}</strong></p>
+                    <img src="${qrData.qrImage}" alt="QR Code">
+                    <p>${qrData.email}</p>
+                    <button onclick="downloadQR('${qrData.qrImage}')">Descargar QR</button>
+                `;
+                document.getElementById("qrList").appendChild(qrContainer);
+            });
+    
+            // Agregar botón de borrar todos
+            let deleteAllButton = document.createElement("button");
+            deleteAllButton.innerText = "Borrar Todos los QRs";
+            deleteAllButton.classList.add("back-button");
+            deleteAllButton.onclick = function () {
+                if (confirm("¿Seguro que deseas borrar todos los QRs? Esta acción no se puede deshacer.")) {
+                    localStorage.removeItem("qrList");
+                    location.reload(); // Recargar la página para actualizar la lista
+                }
+            };
+            document.body.appendChild(deleteAllButton);
+        }
+    
+        function downloadQR(qrImage) {
+            let link = document.createElement("a");
+            link.href = qrImage;
+            link.download = "contact_qr.png";
+            link.click();
+        }
+    </script>
+    
+    
+
+    <!-- Botón de Volver -->
+    <button class="back-button" onclick="window.location.href='dashboard.html'">Volver al Dashboard</button>
 </body>
 
 </html>

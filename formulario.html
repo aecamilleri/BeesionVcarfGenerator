@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,10 +19,6 @@
     </form>
 
     <script>
-        // Verificar que el usuario esté logueado
-        if (!localStorage.getItem("username")) {
-            window.location.href = "login.html";
-        }
         document.getElementById("contactForm").addEventListener("submit", function (event) {
             event.preventDefault();
     
@@ -29,11 +26,6 @@
             let lastname = document.getElementById("lastname").value;
             let phone = document.getElementById("phone").value;
             let email = document.getElementById("email").value;
-            // Guardar los datos en localStorage
-            localStorage.setItem("name", name);
-            localStorage.setItem("lastname", lastname);
-            localStorage.setItem("phone", phone);
-            localStorage.setItem("email", email);
     
             // Generar el vCard como texto
             let vCardData = `BEGIN:VCARD
